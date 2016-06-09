@@ -1,0 +1,16 @@
+{
+  "name": "bea/acf-options-for-polylang",
+  "description": "Allow multiple ACF's options page depending on site's Polylang languages",
+  "minimum-stability": "stable",
+  "license": "GPL-2.0",
+  "authors": [
+    {
+      "name": "BeAPI",
+      "email": "technique@beapi.fr"
+    }
+  ],
+  "type" : "wordpress-plugin",
+  "require" : {
+    "composer/installers" : "~0.1"
+  }
+}
