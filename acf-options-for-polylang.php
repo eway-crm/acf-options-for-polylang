@@ -48,6 +48,8 @@ class BEA_ACF_For_Polylang {
 		 * According to his type, check the value to be not an empty string.
 		 * While false or 0 could be returned, so "empty" method could not be here useful.
 		 *
+		 * @see https://github.com/atomicorange : Thx to atomicorange for the issue
+		 *
 		 * @since 1.0.1
 		 */
 		if ( ! is_null( $value ) ) {
