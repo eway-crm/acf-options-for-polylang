@@ -5,7 +5,7 @@
   Description: Add ACF options page support for Polylang
   Author: BeAPI
   Author URI: http://www.beapi.fr
-  Version: 1.0.0
+  Version: 1.0.1
  */
 class BEA_ACF_For_Polylang {
 
@@ -52,18 +52,18 @@ class BEA_ACF_For_Polylang {
 		 */
 		if ( ! is_null( $value ) ) {
 			if ( is_array( $value ) ) {
-				// Get not empty strings from array
+				// Get from array all the not empty strings
 				$is_empty = array_filter( $value, function ( $value_c ) {
 					return "" !== $value_c;
 				} );
 
-				// Not an array of empty values
 				if ( ! empty( $is_empty ) ) {
+					// Not an array of empty values
 					return $value;
 				}
 			} else {
-				// Not an empty string
 				if ( "" !== $value ) {
+					// Not an empty string
 					return $value;
 				}
 			}
