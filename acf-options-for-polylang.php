@@ -5,7 +5,7 @@
   Description: Add ACF options page support for Polylang
   Author: BeAPI
   Author URI: http://www.beapi.fr
-  Version: 1.0.0
+  Version: 1.0.1
  */
 class BEA_ACF_For_Polylang {
 
@@ -40,12 +40,39 @@ class BEA_ACF_For_Polylang {
 	 * @return mixed|string|void
 	 */
 	public static function set_default_value( $value, $post_id, $field ) {
-		if ( is_admin() || false === strpos( $post_id, 'options' ) || ! function_exists( 'pll_current_language' ) || ! empty( $value ) ) {
+		if ( is_admin() || false === strpos( $post_id, 'options' ) || ! function_exists( 'pll_current_language' ) ) {
 			return $value;
 		}
 
 		/**
-		 * Take off filters for loading "default" Polylang saved value
+		 * According to his type, check the value to be not an empty string.
+		 * While false or 0 could be returned, so "empty" method could not be here useful.
+		 *
+		 * @see https://github.com/atomicorange : Thx to atomicorange for the issue
+		 *
+		 * @since 1.0.1
+		 */
+		if ( ! is_null( $value ) ) {
+			if ( is_array( $value ) ) {
+				// Get from array all the not empty strings
+				$is_empty = array_filter( $value, function ( $value_c ) {
+					return "" !== $value_c;
+				} );
+
+				if ( ! empty( $is_empty ) ) {
+					// Not an array of empty values
+					return $value;
+				}
+			} else {
+				if ( "" !== $value ) {
+					// Not an empty string
+					return $value;
+				}
+			}
+		}
+
+		/**
+		 * Delete filters for loading "default" Polylang saved value
 		 * and for avoiding infinite looping on current filter
 		 */
 		remove_filter( 'acf/settings/current_language', array( __CLASS__, 'get_current_site_lang' ) );
@@ -54,7 +81,7 @@ class BEA_ACF_For_Polylang {
 		$value = acf_get_metadata( 'options', $field['name'] );
 
 		/**
-		 * Re-add taken off filters
+		 * Re-add deleted filters
 		 */
 		add_filter( 'acf/settings/current_language', array( __CLASS__, 'get_current_site_lang' ) );
 		add_filter( 'acf/load_value', array( __CLASS__, 'set_default_value' ), 10, 3 );
