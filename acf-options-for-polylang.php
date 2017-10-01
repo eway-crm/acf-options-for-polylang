@@ -77,7 +77,7 @@ class BEA_ACF_For_Polylang {
 			if ( is_array( $value ) ) {
 				// Get from array all the not empty strings
 				$is_empty = array_filter( $value, function ( $value_c ) {
-					return "" !== $value_c;
+					return ! $this->is_empty( $value_c );
 				} );
 
 				if ( ! empty( $is_empty ) ) {
@@ -108,6 +108,19 @@ class BEA_ACF_For_Polylang {
 		add_filter( 'acf/load_value', array( __CLASS__, 'set_default_value' ), 10, 3 );
 
 		return $value;
+	}
+	
+	/**
+	 * Check if the given value is empty : empty string or empty array
+	 *
+	 * @param $value
+	 *
+	 * @author Maxime CULEA
+	 *
+	 * @return bool
+	 */
+	private function is_empty( $value ) {
+		return "" == $values || ( is_array( $value ) && 0 < count( $value ) );
 	}
 
 }
