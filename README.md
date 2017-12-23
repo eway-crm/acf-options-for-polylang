@@ -10,7 +10,7 @@ We are here to save your life ! Once this plugin is activated, you will be able 
 
 # How ?
 
-This plugin is storing a value for each language into database. *That means at activation, all data will not be anymore available, but still in database.* Then Polylang's lang is used to get the values from the DB.
+This plugin is storing a value for each language into database. <b>That means at activation, all data will not be anymore available, but still in database.</b>Then Polylang's lang is used to get the values from the DB.
 
 # Requirements
 
