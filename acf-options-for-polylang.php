@@ -61,8 +61,13 @@ class BEA_ACF_For_Polylang {
 	 * @return mixed|string|void
 	 */
 	public static function set_default_value( $value, $post_id, $field ) {
-		if ( is_admin() || false === strpos( $post_id, 'options' ) || ! function_exists( 'pll_current_language' ) ) {
+		if ( is_admin() || ! function_exists( 'pll_current_language' ) ) {
 			return $value;
+		}
+
+		$options_pages = self::get_option_page_ids();
+		if ( empty( $options_pages ) || ! in_array( $post_id, $options_pages ) ) {
+			return;
 		}
 
 		/**
@@ -99,7 +104,7 @@ class BEA_ACF_For_Polylang {
 		remove_filter( 'acf/settings/current_language', array( __CLASS__, 'get_current_site_lang' ) );
 		remove_filter( 'acf/load_value', array( __CLASS__, 'set_default_value' ) );
 
-		$value = acf_get_metadata( 'options', $field['name'] );
+		$value = acf_get_metadata( $post_id, $field['name'] );
 
 		/**
 		 * Re-add deleted filters
@@ -110,5 +115,26 @@ class BEA_ACF_For_Polylang {
 		return $value;
 	}
 
+	/**
+	 * Get all registered options pages as array [ post_id => page title ]
+	 *
+	 * @since  1.0.3
+	 * @author Maxime CULEA
+	 *
+	 * @return array|mixed|void
+	 */
+	function get_option_page_ids() {
+		$rule          = [
+			'param'    => 'options_page',
+			'operator' => '==',
+			'value'    => 'acf-options',
+			'id'       => 'rule_0',
+			'group'    => 'group_0',
+		];
+		$rule          = acf_get_valid_location_rule( $rule );
+		$options_pages = acf_get_location_rule_values( $rule );
+
+		return empty( $options_pages ) ? [] : array_keys( $options_pages );
+	}
 }
 new BEA_ACF_For_Polylang();
