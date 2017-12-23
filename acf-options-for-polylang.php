@@ -1,4 +1,5 @@
 <?php
+
 /*
  Plugin Name: BEA - Polylang's ACF Option page
  Version: 1.0.1
@@ -74,7 +75,7 @@ class BEA_ACF_For_Polylang {
 		 * According to his type, check the value to be not an empty string.
 		 * While false or 0 could be returned, so "empty" method could not be here useful.
 		 *
-		 * @see https://github.com/atomicorange : Thx to atomicorange for the issue
+		 * @see   https://github.com/atomicorange : Thx to atomicorange for the issue
 		 *
 		 * @since 1.0.1
 		 */
@@ -137,4 +138,16 @@ class BEA_ACF_For_Polylang {
 		return empty( $options_pages ) ? [] : array_keys( $options_pages );
 	}
 }
-new BEA_ACF_For_Polylang();
+
+/**
+ * Load at plugins loaded to ensure ACF is used
+ *
+ * @since  1.0.3
+ * @author Maxime CULEA
+ */
+add_action( 'plugins_loaded', function () {
+	if ( ! function_exists( 'get_field' ) ) {
+		return;
+	}
+	new BEA_ACF_For_Polylang();
+} );
