@@ -32,6 +32,9 @@
 class BEA_ACF_For_Polylang {
 
 	function __construct() {
+		// Change the setting's lang
+		add_filter( 'acf/validate_post_id', [ $this, 'set_options_id_lang' ], 10, 2 );
+
 		// Set Polylang current lang
 		add_filter( 'acf/settings/current_language', [ $this, 'get_current_site_lang' ] );
 
@@ -163,6 +166,31 @@ class BEA_ACF_For_Polylang {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Manage to change the post_id with the current lang to save option against
+	 *
+	 * @param string $future_post_id
+	 * @param string $original_post_id
+	 *
+	 * @since 1.0.2
+	 * @author Maxime CULEA
+	 *
+	 * @return string
+	 */
+	function set_options_id_lang( $future_post_id, $original_post_id ) {
+		if ( ! $this->is_option_page( $original_post_id ) ) {
+			return $future_post_id;
+		}
+
+		$dl = acf_get_setting( 'default_language' );
+		$cl = acf_get_setting( 'current_language' );
+		if ( $cl && $cl !== $dl ) {
+			$future_post_id .= '_' . $cl;
+		}
+
+		return $future_post_id;
 	}
 }
 
