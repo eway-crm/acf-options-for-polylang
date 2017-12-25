@@ -53,11 +53,11 @@ class BEA_ACF_For_Polylang {
 	/**
 	 * Load default value in front, if none found for an acf option
 	 *
-	 * @author Maxime CULEA
-	 *
 	 * @param $value
 	 * @param $post_id
 	 * @param $field
+	 *
+	 * @author Maxime CULEA
 	 *
 	 * @return mixed|string|void
 	 */
@@ -123,10 +123,10 @@ class BEA_ACF_For_Polylang {
 	/**
 	 * Get all registered options pages as array [ post_id => page title ]
 	 *
-	 * @since  1.0.3
+	 * @since  1.0.2
 	 * @author Maxime CULEA
 	 *
-	 * @return array|mixed|void
+	 * @return array
 	 */
 	function get_option_page_ids() {
 		$rule          = [
