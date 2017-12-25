@@ -142,11 +142,11 @@ class BEA_ACF_For_Polylang {
 /**
  * Load at plugins loaded to ensure ACF is used
  *
- * @since  1.0.3
+ * @since  1.0.2
  * @author Maxime CULEA
  */
 add_action( 'plugins_loaded', function () {
-	if ( ! function_exists( 'get_field' ) ) {
+	if ( ! function_exists( 'get_field' ) || ! function_exists( 'pll_current_language' ) ) {
 		return;
 	}
 	new BEA_ACF_For_Polylang();
