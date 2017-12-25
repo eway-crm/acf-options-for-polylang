@@ -33,10 +33,10 @@ class BEA_ACF_For_Polylang {
 
 	function __construct() {
 		// Set Polylang current lang
-		add_filter( 'acf/settings/current_language', array( __CLASS__, 'get_current_site_lang' ) );
+		add_filter( 'acf/settings/current_language', [ $this, 'get_current_site_lang' ] );
 
 		// Load default Polylang's option page value
-		add_filter( 'acf/load_value', array( __CLASS__, 'set_default_value' ), 10, 3 );
+		add_filter( 'acf/load_value', [ $this, 'set_default_value' ], 10, 3 );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class BEA_ACF_For_Polylang {
 	 *
 	 * @return bool|string
 	 */
-	public static function get_current_site_lang() {
+	public function get_current_site_lang() {
 		return function_exists( 'pll_current_language' ) ? pll_current_language( 'locale' ) : get_locale();
 	}
 
@@ -61,7 +61,7 @@ class BEA_ACF_For_Polylang {
 	 *
 	 * @return mixed|string|void
 	 */
-	public static function set_default_value( $value, $post_id, $field ) {
+	public function set_default_value( $value, $post_id, $field ) {
 		if ( is_admin() || ! function_exists( 'pll_current_language' ) ) {
 			return $value;
 		}
@@ -102,16 +102,16 @@ class BEA_ACF_For_Polylang {
 		 * Delete filters for loading "default" Polylang saved value
 		 * and for avoiding infinite looping on current filter
 		 */
-		remove_filter( 'acf/settings/current_language', array( __CLASS__, 'get_current_site_lang' ) );
-		remove_filter( 'acf/load_value', array( __CLASS__, 'set_default_value' ) );
+		remove_filter( 'acf/settings/current_language', [ $this, 'get_current_site_lang' ] );
+		remove_filter( 'acf/load_value', [ $this, 'set_default_value' ] );
 
 		$value = acf_get_metadata( $post_id, $field['name'] );
 
 		/**
 		 * Re-add deleted filters
 		 */
-		add_filter( 'acf/settings/current_language', array( __CLASS__, 'get_current_site_lang' ) );
-		add_filter( 'acf/load_value', array( __CLASS__, 'set_default_value' ), 10, 3 );
+		add_filter( 'acf/settings/current_language', [ $this, 'get_current_site_lang' ] );
+		add_filter( 'acf/load_value', [ $this, 'set_default_value' ], 10, 3 );
 
 		return $value;
 	}
