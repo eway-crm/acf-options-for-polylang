@@ -62,13 +62,8 @@ class BEA_ACF_For_Polylang {
 	 * @return mixed|string|void
 	 */
 	public function set_default_value( $value, $post_id, $field ) {
-		if ( is_admin() || ! function_exists( 'pll_current_language' ) ) {
+		if ( is_admin() || ! self::is_option_page( $post_id ) ) {
 			return $value;
-		}
-
-		$options_pages = self::get_option_page_ids();
-		if ( empty( $options_pages ) || ! in_array( $post_id, $options_pages ) ) {
-			return;
 		}
 
 		/**
@@ -105,7 +100,16 @@ class BEA_ACF_For_Polylang {
 		remove_filter( 'acf/settings/current_language', [ $this, 'get_current_site_lang' ] );
 		remove_filter( 'acf/load_value', [ $this, 'set_default_value' ] );
 
-		$value = acf_get_metadata( $post_id, $field['name'] );
+		/**
+		 * Generate the all language option's post_id key
+		 *
+		 * @since  1.0.2
+		 * @author Maxime CULEA
+		 */
+		$all_language_post_id = str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
+
+		// Get the "All language" value
+		$value = acf_get_metadata( $all_language_post_id, $field['name'] );
 
 		/**
 		 * Re-add deleted filters
