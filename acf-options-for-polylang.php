@@ -141,6 +141,29 @@ class BEA_ACF_For_Polylang {
 
 		return empty( $options_pages ) ? [] : array_keys( $options_pages );
 	}
+
+	/**
+	 * Check if the given post id is from an options page or not
+	 *
+	 * @param string $post_id
+	 *
+	 * @since 1.0.2
+	 * @author Maxime CULEA
+	 *
+	 * @return bool
+	 */
+	function is_option_page( $post_id ) {
+		if ( false !== strpos( $post_id, 'options' ) ) {
+			return true;
+		}
+
+		$options_pages = $this->get_option_page_ids();
+		if ( ! empty( $options_pages ) && in_array( $post_id, $options_pages ) ) {
+			return true;
+		}
+
+		return false;
+	}
 }
 
 /**
