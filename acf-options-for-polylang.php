@@ -54,7 +54,7 @@ class BEA_ACF_For_Polylang {
 	}
 
 	/**
-	 * Load default value in front, if none found for an acf option
+	 * Load default value (all languages) in front if none found for an acf option
 	 *
 	 * @param $value
 	 * @param $post_id
@@ -66,6 +66,15 @@ class BEA_ACF_For_Polylang {
 	 */
 	public function get_default_value( $value, $post_id, $field ) {
 		if ( is_admin() || ! self::is_option_page( $post_id ) ) {
+			return $value;
+		}
+
+		/**
+		 * Activate or deactivate the default value (all languages)
+		 *
+		 * @since 1.0.2
+		 */
+		if ( ! apply_filters( 'bea.aofp.get_default', true ) ) {
 			return $value;
 		}
 
@@ -150,7 +159,7 @@ class BEA_ACF_For_Polylang {
 	 *
 	 * @param string $post_id
 	 *
-	 * @since 1.0.2
+	 * @since  1.0.2
 	 * @author Maxime CULEA
 	 *
 	 * @return bool
@@ -174,7 +183,7 @@ class BEA_ACF_For_Polylang {
 	 * @param string $future_post_id
 	 * @param string $original_post_id
 	 *
-	 * @since 1.0.2
+	 * @since  1.0.2
 	 * @author Maxime CULEA
 	 *
 	 * @return string
