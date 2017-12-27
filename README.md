@@ -61,6 +61,10 @@ Please refer to the [contributing guidelines](.github/CONTRIBUTING.md) to increa
 
 If you identify any errors or have an idea for improving the plugin, feel free to open an [issue](../../issues/new). Please provide as much info as needed in order to help us resolving / approve your request.
 
+## For developpers
+
+The plugin is designed to get the Polylang "All languages" value if the current lang one is empty. But if you are not interested about this behaviour, you can programmatically deactivate it using the following filter by setting to false : `bea.aofp.get_default`.
+
 # Who ?
 
 Created by [Be API](https://beapi.fr), the French WordPress leader agency since 2009. Based in Paris, we are more than 30 people and always [hiring](https://beapi.workable.com) some fun and talented guys. So we will be pleased to work with you.
