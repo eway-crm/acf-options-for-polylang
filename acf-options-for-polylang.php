@@ -32,14 +32,14 @@
 class BEA_ACF_For_Polylang {
 
 	function __construct() {
-		// Change the setting's lang
+		// Set the setting's lang
 		add_filter( 'acf/validate_post_id', [ $this, 'set_options_id_lang' ], 10, 2 );
 
 		// Set Polylang current lang
-		add_filter( 'acf/settings/current_language', [ $this, 'get_current_site_lang' ] );
+		add_filter( 'acf/settings/current_language', [ $this, 'set_current_site_lang' ] );
 
-		// Load default Polylang's option page value
-		add_filter( 'acf/load_value', [ $this, 'set_default_value' ], 10, 3 );
+		// Get default Polylang's option page value
+		add_filter( 'acf/load_value', [ $this, 'get_default_value' ], 10, 3 );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class BEA_ACF_For_Polylang {
 	 *
 	 * @return bool|string
 	 */
-	public function get_current_site_lang() {
+	public function set_current_site_lang() {
 		return pll_current_language( 'locale' );
 	}
 
@@ -64,7 +64,7 @@ class BEA_ACF_For_Polylang {
 	 *
 	 * @return mixed|string|void
 	 */
-	public function set_default_value( $value, $post_id, $field ) {
+	public function get_default_value( $value, $post_id, $field ) {
 		if ( is_admin() || ! self::is_option_page( $post_id ) ) {
 			return $value;
 		}
@@ -100,8 +100,8 @@ class BEA_ACF_For_Polylang {
 		 * Delete filters for loading "default" Polylang saved value
 		 * and for avoiding infinite looping on current filter
 		 */
-		remove_filter( 'acf/settings/current_language', [ $this, 'get_current_site_lang' ] );
-		remove_filter( 'acf/load_value', [ $this, 'set_default_value' ] );
+		remove_filter( 'acf/settings/current_language', [ $this, 'set_current_site_lang' ] );
+		remove_filter( 'acf/load_value', [ $this, 'get_default_value' ] );
 
 		/**
 		 * Generate the all language option's post_id key
@@ -117,8 +117,8 @@ class BEA_ACF_For_Polylang {
 		/**
 		 * Re-add deleted filters
 		 */
-		add_filter( 'acf/settings/current_language', [ $this, 'get_current_site_lang' ] );
-		add_filter( 'acf/load_value', [ $this, 'set_default_value' ], 10, 3 );
+		add_filter( 'acf/settings/current_language', [ $this, 'set_current_site_lang' ] );
+		add_filter( 'acf/load_value', [ $this, 'get_default_value' ], 10, 3 );
 
 		return $value;
 	}
@@ -195,7 +195,7 @@ class BEA_ACF_For_Polylang {
 }
 
 /**
- * Load at plugins loaded to ensure ACF is used
+ * Load at plugins loaded to ensure ACF and Polylang are used
  *
  * @since  1.0.2
  * @author Maxime CULEA
