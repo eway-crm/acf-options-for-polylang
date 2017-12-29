@@ -1,4 +1,5 @@
 <?php
+
 /*
  Plugin Name: BEA - ACF Options for Polylang
  Version: 1.0.2
@@ -14,11 +15,14 @@
 class BEA_ACF_For_Polylang {
 
 	function __construct() {
-		// Set Polylang current lang
-		add_filter( 'acf/settings/current_language', array( __CLASS__, 'get_current_site_lang' ) );
+		// Set the setting's lang
+		add_filter( 'acf/validate_post_id', [ $this, 'set_options_id_lang' ], 10, 2 );
 
-		// Load default Polylang's option page value
-		add_filter( 'acf/load_value', array( __CLASS__, 'set_default_value' ), 10, 3 );
+		// Set Polylang current lang
+		add_filter( 'acf/settings/current_language', [ $this, 'set_current_site_lang' ] );
+
+		// Get default Polylang's option page value
+		add_filter( 'acf/load_value', [ $this, 'get_default_value' ], 10, 3 );
 	}
 
 	/**
@@ -28,23 +32,32 @@ class BEA_ACF_For_Polylang {
 	 *
 	 * @return bool|string
 	 */
-	public static function get_current_site_lang() {
-		return function_exists( 'pll_current_language' ) ? pll_current_language( 'locale' ) : get_locale();
+	public function set_current_site_lang() {
+		return pll_current_language( 'locale' );
 	}
 
 	/**
-	 * Load default value in front, if none found for an acf option
-	 *
-	 * @author Maxime CULEA
+	 * Load default value (all languages) in front if none found for an acf option
 	 *
 	 * @param $value
 	 * @param $post_id
 	 * @param $field
 	 *
+	 * @author Maxime CULEA
+	 *
 	 * @return mixed|string|void
 	 */
-	public static function set_default_value( $value, $post_id, $field ) {
-		if ( is_admin() || false === strpos( $post_id, 'options' ) || ! function_exists( 'pll_current_language' ) ) {
+	public function get_default_value( $value, $post_id, $field ) {
+		if ( is_admin() || ! self::is_option_page( $post_id ) ) {
+			return $value;
+		}
+
+		/**
+		 * Activate or deactivate the default value (all languages)
+		 *
+		 * @since 1.0.2
+		 */
+		if ( ! apply_filters( 'bea.aofp.get_default', true ) ) {
 			return $value;
 		}
 
@@ -52,7 +65,7 @@ class BEA_ACF_For_Polylang {
 		 * According to his type, check the value to be not an empty string.
 		 * While false or 0 could be returned, so "empty" method could not be here useful.
 		 *
-		 * @see https://github.com/atomicorange : Thx to atomicorange for the issue
+		 * @see   https://github.com/atomicorange : Thx to atomicorange for the issue
 		 *
 		 * @since 1.0.1
 		 */
@@ -79,19 +92,111 @@ class BEA_ACF_For_Polylang {
 		 * Delete filters for loading "default" Polylang saved value
 		 * and for avoiding infinite looping on current filter
 		 */
-		remove_filter( 'acf/settings/current_language', array( __CLASS__, 'get_current_site_lang' ) );
-		remove_filter( 'acf/load_value', array( __CLASS__, 'set_default_value' ) );
+		remove_filter( 'acf/settings/current_language', [ $this, 'set_current_site_lang' ] );
+		remove_filter( 'acf/load_value', [ $this, 'get_default_value' ] );
 
-		$value = acf_get_metadata( 'options', $field['name'] );
+		/**
+		 * Generate the all language option's post_id key
+		 *
+		 * @since  1.0.2
+		 * @author Maxime CULEA
+		 */
+		$all_language_post_id = str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
+
+		// Get the "All language" value
+		$value = acf_get_metadata( $all_language_post_id, $field['name'] );
 
 		/**
 		 * Re-add deleted filters
 		 */
-		add_filter( 'acf/settings/current_language', array( __CLASS__, 'get_current_site_lang' ) );
-		add_filter( 'acf/load_value', array( __CLASS__, 'set_default_value' ), 10, 3 );
+		add_filter( 'acf/settings/current_language', [ $this, 'set_current_site_lang' ] );
+		add_filter( 'acf/load_value', [ $this, 'get_default_value' ], 10, 3 );
 
 		return $value;
 	}
 
+	/**
+	 * Get all registered options pages as array [ post_id => page title ]
+	 *
+	 * @since  1.0.2
+	 * @author Maxime CULEA
+	 *
+	 * @return array
+	 */
+	function get_option_page_ids() {
+		$rule          = [
+			'param'    => 'options_page',
+			'operator' => '==',
+			'value'    => 'acf-options',
+			'id'       => 'rule_0',
+			'group'    => 'group_0',
+		];
+		$rule          = acf_get_valid_location_rule( $rule );
+		$options_pages = acf_get_location_rule_values( $rule );
+
+		return empty( $options_pages ) ? [] : array_keys( $options_pages );
+	}
+
+	/**
+	 * Check if the given post id is from an options page or not
+	 *
+	 * @param string $post_id
+	 *
+	 * @since  1.0.2
+	 * @author Maxime CULEA
+	 *
+	 * @return bool
+	 */
+	function is_option_page( $post_id ) {
+		if ( false !== strpos( $post_id, 'options' ) ) {
+			return true;
+		}
+
+		$options_pages = $this->get_option_page_ids();
+		if ( ! empty( $options_pages ) && in_array( $post_id, $options_pages ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Manage to change the post_id with the current lang to save option against
+	 *
+	 * @param string $future_post_id
+	 * @param string $original_post_id
+	 *
+	 * @since  1.0.2
+	 * @author Maxime CULEA
+	 *
+	 * @return string
+	 */
+	function set_options_id_lang( $future_post_id, $original_post_id ) {
+		// Only on custom post id option page
+		$options_pages = $this->get_option_page_ids();
+		if ( empty( $options_pages ) || ! in_array( $original_post_id, $options_pages ) ) {
+			return $future_post_id;
+		}
+
+		$dl = acf_get_setting( 'default_language' );
+		$cl = acf_get_setting( 'current_language' );
+		if ( $cl && $cl !== $dl ) {
+			$future_post_id .= '_' . $cl;
+		}
+
+		return $future_post_id;
+	}
 }
-new BEA_ACF_For_Polylang();
+
+/**
+ * Load at plugins loaded to ensure ACF and Polylang are used
+ *
+ * @since  1.0.2
+ * @author Maxime CULEA
+ */
+add_action( 'plugins_loaded', function () {
+	if ( ! function_exists( 'get_field' ) || ! function_exists( 'pll_current_language' ) ) {
+		return;
+	}
+	new BEA_ACF_For_Polylang();
+} );
