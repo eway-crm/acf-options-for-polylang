@@ -1,20 +1,12 @@
-<?php
+<?php namespace BEA\ACF_Options_For_Polylang;
 
-/*
- Plugin Name: BEA - ACF Options for Polylang
- Version: 1.0.2
- Plugin URI: https://github.com/BeAPI/acf-options-for-polylang
- Description: Add ACF options page support for Polylang.
- Author: Be API Technical team
- Author URI: https://beapi.fr
- Contributors: Maxime Culea
- ----
- Copyright 2017 Be API Technical team (human@beapi.fr)
- */
+class Main {
+	/**
+	 * Use the trait
+	 */
+	use Singleton;
 
-class BEA_ACF_For_Polylang {
-
-	function __construct() {
+	protected function init() {
 		// Set the setting's lang
 		add_filter( 'acf/validate_post_id', [ $this, 'set_options_id_lang' ], 10, 2 );
 
@@ -23,6 +15,8 @@ class BEA_ACF_For_Polylang {
 
 		// Get default Polylang's option page value
 		add_filter( 'acf/load_value', [ $this, 'get_default_value' ], 10, 3 );
+
+		add_action( 'init', [ $this, 'init_translations' ] );
 	}
 
 	/**
@@ -124,13 +118,17 @@ class BEA_ACF_For_Polylang {
 	 * @return array
 	 */
 	function get_option_page_ids() {
-		$rule          = [
+		if ( ! function_exists( 'acf_get_valid_location_rule' ) ) {
+			return [];
+		}
+		$rule = [
 			'param'    => 'options_page',
 			'operator' => '==',
 			'value'    => 'acf-options',
 			'id'       => 'rule_0',
 			'group'    => 'group_0',
 		];
+
 		$rule          = acf_get_valid_location_rule( $rule );
 		$options_pages = acf_get_location_rule_values( $rule );
 
@@ -186,17 +184,12 @@ class BEA_ACF_For_Polylang {
 
 		return $future_post_id;
 	}
-}
 
-/**
- * Load at plugins loaded to ensure ACF and Polylang are used
- *
- * @since  1.0.2
- * @author Maxime CULEA
- */
-add_action( 'plugins_loaded', function () {
-	if ( ! function_exists( 'get_field' ) || ! function_exists( 'pll_current_language' ) ) {
-		return;
+	/**
+	 * Load the plugin translation
+	 */
+	public function init_translations() {
+		// Load translations
+		load_plugin_textdomain( 'bea-acf-options-for-polylang', false, BEA_CPT_AGENT_PLUGIN_DIRNAME . '/languages' );
 	}
-	new BEA_ACF_For_Polylang();
-} );
+}
