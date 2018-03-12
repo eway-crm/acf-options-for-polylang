@@ -9,7 +9,22 @@
  Author URI: https://beapi.fr
  Contributors: Maxime Culea
  ----
- Copyright 2017 Be API Technical team (human@beapi.fr)
+
+ Copyright 2018 Be API Technical team (human@beapi.fr)
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 
@@ -28,30 +43,11 @@ define( 'BEA_ACF_OPTIONS_FOR_POLYLANG_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BEA_ACF_OPTIONS_MAIN_FILE_DIR', __FILE__ );
 define( 'BEA_ACF_OPTIONS_FOR_POLYLANG_PLUGIN_DIRNAME', basename( rtrim( dirname( __FILE__ ), '/' ) ) );
 
-// Check PHP min version
-if ( version_compare( PHP_VERSION, BEA_CPT_AGENT_MIN_PHP_VERSION, '<' ) ) {
-	require_once( BEA_CPT_AGENT_DIR . 'compat.php' );
-
-	// possibly display a notice, trigger error
-	add_action( 'admin_init', array( 'BEA\CPT_Agent\Compatibility', 'admin_init' ) );
-
-	// stop execution of this file
-	return;
-}
-
-/**
- * Autoload all the things \o/
- */
+/** Autoload all the things \o/ */
 require_once BEA_ACF_OPTIONS_FOR_POLYLANG_DIR . 'autoload.php';
 
-BEA\ACF_Options_For_Polylang\Plugin::get_instance();
+\BEA\ACF_Options_For_Polylang\Requirements::get_instance();
 
-/**
- * Load at plugins loaded to ensure ACF and Polylang are used
- *
- * @since  1.0.2
- * @author Maxime CULEA
- */
-add_action( 'plugins_loaded', function () {
+add_action( 'bea_acf_options_for_polylang_load', function () {
 	\BEA\ACF_Options_For_Polylang\Main::get_instance();
 } );
