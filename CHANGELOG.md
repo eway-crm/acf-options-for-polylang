@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0 - Mar 2018
+* True (complet) plugin.
+* Add check for ACF 5.6.
+
 ## 1.0.2 - 23 Dec 2017
 * Refactor and reformat.
 * Handle all options page and custom post_id.
