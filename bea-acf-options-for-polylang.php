@@ -46,8 +46,12 @@ define( 'BEA_ACF_OPTIONS_FOR_POLYLANG_PLUGIN_DIRNAME', basename( rtrim( dirname(
 /** Autoload all the things \o/ */
 require_once BEA_ACF_OPTIONS_FOR_POLYLANG_DIR . 'autoload.php';
 
-\BEA\ACF_Options_For_Polylang\Requirements::get_instance();
+add_action( 'plugins_loaded', 'bea_acf_options_for_polylang_load', 100 );
+function bea_acf_options_for_polylang_load() {
+	$requirements = \BEA\ACF_Options_For_Polylang\Requirements::get_instance();
+	if ( ! $requirements->check_requirements() ) {
+		return;
+	}
 
-add_action( 'bea_acf_options_for_polylang_load', function () {
 	\BEA\ACF_Options_For_Polylang\Main::get_instance();
-} );
+}
