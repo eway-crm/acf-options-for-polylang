@@ -4,13 +4,13 @@
 
 You are using Advanced Custom Fields for creating option pages and you have Polylang installed for awsome multilingual site ?
 
-Sadly, you are noting that Polylang is not handling ACF's Option Pages. Which means values will be the same for all languages you have set :(
+Sadly, Polylang is not handling ACF's Option Pages. Which means values will be the same for all languages you have set :(
 
 We are here to save your life ! Once this plugin is activated, you will be able to set a different value for each language, and if none is set, the "All languages" value will be used as default one.
 
 # How ?
 
-This plugin is storing a value for each language into database. <b>That means at activation, all data will not be anymore available, but still in database.</b>Then Polylang's lang is used to get the values from the DB.
+This plugin is storing a value for each language into database. <b>That means at activation, all data will not be anymore available, but still in database.</b>Then Polylang's lang is used to get the values from the DB. Simply contribute your option page by selecting the Polylang's language from admin flags ui.
 
 # Requirements
 
