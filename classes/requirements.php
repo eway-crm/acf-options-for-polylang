@@ -4,8 +4,6 @@ class Requirements {
 
 	use Singleton;
 
-	public $satsify_requiremeents = true;
-
 	/**
 	 * All about requirements checks
 	 *
@@ -35,8 +33,6 @@ class Requirements {
 
 	// Display message and handle errors
 	public function display_error( $message ) {
-		$this->satsify_requiremeents = false;
-
 		trigger_error( $message );
 
 		add_action( 'admin_notices', function () use ( $message ) {
