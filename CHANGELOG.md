@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.1 - 9 Mai 2018
+* [#15](https://github.com/BeAPI/acf-options-for-polylang/issues/15) : fix way requirements are checked to trigger on front / admin.
+
 ## 1.1.0 - Mar 2018
 * True (complet) plugin.
 * Add check for ACF 5.6.
