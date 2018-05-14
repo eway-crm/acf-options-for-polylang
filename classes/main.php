@@ -190,6 +190,6 @@ class Main {
 	 */
 	public function init_translations() {
 		// Load translations
-		load_plugin_textdomain( 'bea-acf-options-for-polylang', false, BEA_CPT_AGENT_PLUGIN_DIRNAME . '/languages' );
+		load_plugin_textdomain( 'bea-acf-options-for-polylang', false, BEA_ACF_OPTIONS_FOR_POLYLANG_PLUGIN_DIRNAME . '/languages' );
 	}
 }
