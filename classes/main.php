@@ -98,7 +98,7 @@ class Main {
 		$all_language_post_id = str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
 
 		// Get the "All language" value
-		$value = acf_get_metadata( $all_language_post_id, $field['name'] );
+		$value = get_field( $field['name'], $all_language_post_id );
 
 		/**
 		 * Re-add deleted filters
@@ -118,21 +118,7 @@ class Main {
 	 * @return array
 	 */
 	function get_option_page_ids() {
-		if ( ! function_exists( 'acf_get_valid_location_rule' ) ) {
-			return [];
-		}
-		$rule = [
-			'param'    => 'options_page',
-			'operator' => '==',
-			'value'    => 'acf-options',
-			'id'       => 'rule_0',
-			'group'    => 'group_0',
-		];
-
-		$rule          = acf_get_valid_location_rule( $rule );
-		$options_pages = acf_get_location_rule_values( $rule );
-
-		return empty( $options_pages ) ? [] : array_keys( $options_pages );
+		return wp_list_pluck( acf_options_page()->get_pages(), 'post_id' );
 	}
 
 	/**
@@ -146,6 +132,9 @@ class Main {
 	 * @return bool
 	 */
 	function is_option_page( $post_id ) {
+		// Strip any locale from the end of the post_id so it matches post_id's that had their locale appended already
+		$post_id = str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
+
 		if ( false !== strpos( $post_id, 'options' ) ) {
 			return true;
 		}
