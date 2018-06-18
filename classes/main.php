@@ -16,6 +16,10 @@ class Main {
 		// Get default Polylang's option page value
 		add_filter( 'acf/load_value', [ $this, 'get_default_value' ], 10, 3 );
 
+		// Help loading right field for repeaters
+		add_filter( 'acf/load_reference', [ $this, 'get_default_reference' ], 10, 3 );
+
+		// Plugin's own translations
 		add_action( 'init', [ $this, 'init_translations' ] );
 	}
 
@@ -28,6 +32,23 @@ class Main {
 	 */
 	public function set_current_site_lang() {
 		return pll_current_language( 'locale' );
+	}
+
+	/**
+	 * Load the correct reference for field key in have_rows loops
+	 *
+	 * @param $reference
+	 * @param $field_name
+	 * @param $post_id
+	 * @return string|void
+	 */
+	public function get_default_reference( $reference, $field_name, $post_id ) {
+		if ( ! $reference || $reference == '' ) {
+			remove_filter( 'acf/load_reference', [ $this, 'get_default_reference' ] );
+			$reference = acf_get_reference( $field_name, "options" );
+			add_filter( 'acf/load_reference', [ $this, 'get_default_reference' ], 10, 3 );
+		}
+		return $reference;
 	}
 
 	/**
