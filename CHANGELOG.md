@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.2 - 31 Jul 2018
+* [#22](https://github.com/BeAPI/acf-options-for-polylang/pull/22) : Fix error with repeater fields default values
+
 ## 1.1.1 - 9 Mai 2018
 * [#15](https://github.com/BeAPI/acf-options-for-polylang/issues/15) : fix way requirements are checked to trigger on front / admin.
 
