@@ -42,16 +42,16 @@ Once activated Polylang's languages into admin area will affect ACF's options pa
 ## Features 
 
 - Almost simple fields (text, textarea, links, etc)
+- Repeater fields ( with simple fields )
 
 ## More features to come
 
 As you can see, some [issues](../../issues?q=is%3Aissue+is%3Aopen+label%3Aquestion) are feature requests :
-- Repeater fields support
 - Migration of data for using plugin : at activation, all data will not be anymore available, but still in database.
 - Migration of data for not using plugin anymore
 
 ## Next Roadmap
-- [9](https://github.com/BeAPI/acf-options-for-polylang/issues/9) : Support of repeater fields
+- todo
 
 ## Contributing
 
