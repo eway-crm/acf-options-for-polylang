@@ -40,14 +40,28 @@ class Main {
 	 * @param $reference
 	 * @param $field_name
 	 * @param $post_id
-	 * @return string|void
+	 *
+	 * @author Jukra, Maxime CULEA
+	 *
+	 * @since  1.1.2
+	 *
+	 * @return string
 	 */
 	public function get_default_reference( $reference, $field_name, $post_id ) {
-		if ( ! $reference || $reference == '' ) {
-			remove_filter( 'acf/load_reference', [ $this, 'get_default_reference' ] );
-			$reference = acf_get_reference( $field_name, "options" );
-			add_filter( 'acf/load_reference', [ $this, 'get_default_reference' ], 10, 3 );
+		if ( ! empty( $reference ) ) {
+			return $reference;
 		}
+
+		/**
+		 * Dynamically get the options page ID
+		 * @see : https://regex101.com/r/58uhKg/2/
+		 */
+		$_post_id = preg_replace( '/(_[a-z]{2}_[A-Z]{2})/', '', $post_id );
+
+		remove_filter( 'acf/load_reference', [ $this, 'get_default_reference' ] );
+		$reference = acf_get_reference( $field_name, $_post_id );
+		add_filter( 'acf/load_reference', [ $this, 'get_default_reference' ], 10, 3 );
+
 		return $reference;
 	}
 
