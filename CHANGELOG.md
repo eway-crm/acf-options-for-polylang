@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.3 - 2 Aug 2018
+* [#23](https://github.com/BeAPI/acf-options-for-polylang/pull/23) : Requirement to php5.6 whereas namespace are 5.3
+
 ## 1.1.2 - 31 Jul 2018
 * [#22](https://github.com/BeAPI/acf-options-for-polylang/pull/22) : Fix error with repeater fields default values
 

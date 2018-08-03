@@ -10,12 +10,6 @@ class Requirements {
 	 * @return bool
 	 */
 	public function check_requirements() {
-		if ( version_compare( PHP_VERSION, BEA_ACF_OPTIONS_FOR_POLYLANG_MIN_PHP_VERSION, '<' ) ) {
-			$this->display_error( sprintf( __( 'Plugin Boilerplate require PHP version %s or greater to be activated. Your server is currently running PHP version %s.', 'bea-acf-options-for-polylang' ), BEA_ACF_OPTIONS_FOR_POLYLANG_MIN_PHP_VERSION, PHP_VERSION ) );
-
-			return false;
-		}
-
 		if ( ! function_exists( 'acf' ) || ! function_exists( 'pll_current_language' ) ) {
 			$this->display_error( __( 'Advanced Custom Fields and Polylang are required plugins.', 'bea-acf-options-for-polylang' ) );
 
