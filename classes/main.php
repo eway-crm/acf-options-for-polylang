@@ -206,8 +206,7 @@ class Main {
 	 */
 	function set_options_id_lang( $future_post_id, $original_post_id ) {
 		// Only on custom post id option page
-		$options_pages = $this->get_option_page_ids();
-		if ( empty( $options_pages ) || ! in_array( $original_post_id, $options_pages ) ) {
+		if ( ! self::is_option_page( $original_post_id ) ) {
 			return $future_post_id;
 		}
 
