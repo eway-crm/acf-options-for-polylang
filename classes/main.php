@@ -186,11 +186,7 @@ class Main {
 		}
 
 		$options_pages = $this->get_option_page_ids();
-		if ( ! empty( $options_pages ) && in_array( $post_id, $options_pages ) ) {
-			return true;
-		}
-
-		return false;
+		return ! empty( $options_pages ) && in_array( $post_id, $options_pages );
 	}
 
 	/**
