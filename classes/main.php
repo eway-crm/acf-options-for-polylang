@@ -81,15 +81,17 @@ class Main {
 			return $value;
 		}
 
+		$original_post_id = Helpers::original_option_id( $post_id );
+
 		/**
 		 * Activate or deactivate the default value (all languages) for the given post id
 		 *
-		 * @param bool   $show_default : whatever to show default for the given post id
-		 * @param string $post_id      : the original post id without lang attributes
+		 * @param bool   $show_default     : whatever to show default for the given post id
+		 * @param string $original_post_id : the original post id without lang attributes
 		 *
 		 * @since 1.0.4
 		 */
-		if ( ! apply_filters( 'bea.aofp.get_default', true, Helpers::original_option_id( $post_id ) ) ) {
+		if ( ! apply_filters( 'bea.aofp.get_default', true, $original_post_id ) ) {
 			return $value;
 		}
 
@@ -127,10 +129,8 @@ class Main {
 		remove_filter( 'acf/settings/current_language', [ $this, 'set_current_site_lang' ] );
 		remove_filter( 'acf/load_value', [ $this, 'get_default_value' ] );
 
-		$all_language_post_id = Helpers::original_option_id( $post_id );
-
 		// Get the "All language" value
-		$value = acf_get_metadata( $all_language_post_id, $field['name'] );
+		$value = acf_get_metadata( $original_post_id, $field['name'] );
 
 		/**
 		 * Re-add deleted filters
@@ -158,10 +158,13 @@ class Main {
 			return $future_post_id;
 		}
 
-		$dl = acf_get_setting( 'default_language' );
-		$cl = acf_get_setting( 'current_language' );
-		if ( $cl && $cl !== $dl ) {
-			$future_post_id .= '_' . $cl;
+		// If no custom acf key, no need while already impacted by Polylang locale
+		if ( 'options' !== Helpers::original_option_id( $future_post_id ) ) {
+			$dl = acf_get_setting( 'default_language' );
+			$cl = acf_get_setting( 'current_language' );
+			if ( $cl && $cl !== $dl ) {
+				$future_post_id .= '_' . $cl;
+			}
 		}
 
 		return $future_post_id;
