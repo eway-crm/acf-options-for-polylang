@@ -82,11 +82,14 @@ class Main {
 		}
 
 		/**
-		 * Activate or deactivate the default value (all languages)
+		 * Activate or deactivate the default value (all languages) for the given post id
 		 *
-		 * @since 1.0.2
+		 * @param bool   $show_default : whatever to show default for the given post id
+		 * @param string $post_id      : the original post id without lang attributes
+		 *
+		 * @since 1.0.4
 		 */
-		if ( ! apply_filters( 'bea.aofp.get_default', true ) ) {
+		if ( ! apply_filters( 'bea.aofp.get_default', true, Helpers::original_option_id( $post_id ) ) ) {
 			return $value;
 		}
 
@@ -167,6 +170,7 @@ class Main {
 		}
 
 		$options_pages = $this->get_option_page_ids();
+
 		return ! empty( $options_pages ) && in_array( $post_id, $options_pages );
 	}
 
