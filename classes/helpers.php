@@ -8,7 +8,7 @@ class Helpers {
 	 *
 	 * @author Maxime CULEA
 	 *
-	 * @since  next
+	 * @since  1.0.4
 	 *
 	 * @return string
 	 */
