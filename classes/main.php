@@ -98,7 +98,7 @@ class Main {
 		$all_language_post_id = str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
 
 		// Get the "All language" value
-		$value = get_field( $field['name'], $all_language_post_id );
+		$value = acf_get_metadata( $all_language_post_id, $field['name'] );
 
 		/**
 		 * Re-add deleted filters
