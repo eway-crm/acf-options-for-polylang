@@ -124,7 +124,7 @@ class Main {
 		remove_filter( 'acf/settings/current_language', [ $this, 'set_current_site_lang' ] );
 		remove_filter( 'acf/load_value', [ $this, 'get_default_value' ] );
 
-		$post_id = Helpers::original_option_id( $post_id );
+		$all_language_post_id = Helpers::original_option_id( $post_id );
 
 		// Get the "All language" value
 		$value = acf_get_metadata( $all_language_post_id, $field['name'] );
