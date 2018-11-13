@@ -77,7 +77,7 @@ class Main {
 	 * @return mixed|string|void
 	 */
 	public function get_default_value( $value, $post_id, $field ) {
-		if ( is_admin() || ! self::is_option_page( $post_id ) ) {
+		if ( is_admin() || ! Helpers::is_option_page( $post_id ) ) {
 			return $value;
 		}
 
@@ -142,39 +142,6 @@ class Main {
 	}
 
 	/**
-	 * Get all registered options pages as array [ post_id => page title ]
-	 *
-	 * @since  1.0.2
-	 * @author Maxime CULEA
-	 *
-	 * @return array
-	 */
-	function get_option_page_ids() {
-		return wp_list_pluck( acf_options_page()->get_pages(), 'post_id' );
-	}
-
-	/**
-	 * Check if the given post id is from an options page or not
-	 *
-	 * @param string $post_id
-	 *
-	 * @since  1.0.2
-	 * @author Maxime CULEA
-	 *
-	 * @return bool
-	 */
-	function is_option_page( $post_id ) {
-		$post_id = Helpers::original_option_id( $post_id );
-		if ( false !== strpos( $post_id, 'options' ) ) {
-			return true;
-		}
-
-		$options_pages = $this->get_option_page_ids();
-
-		return ! empty( $options_pages ) && in_array( $post_id, $options_pages );
-	}
-
-	/**
 	 * Manage to change the post_id with the current lang to save option against
 	 *
 	 * @param string $future_post_id
@@ -187,7 +154,7 @@ class Main {
 	 */
 	function set_options_id_lang( $future_post_id, $original_post_id ) {
 		// Only on custom post id option page
-		if ( ! self::is_option_page( $original_post_id ) ) {
+		if ( ! Helpers::is_option_page( $original_post_id ) ) {
 			return $future_post_id;
 		}
 
