@@ -124,13 +124,7 @@ class Main {
 		remove_filter( 'acf/settings/current_language', [ $this, 'set_current_site_lang' ] );
 		remove_filter( 'acf/load_value', [ $this, 'get_default_value' ] );
 
-		/**
-		 * Generate the all language option's post_id key
-		 *
-		 * @since  1.0.2
-		 * @author Maxime CULEA
-		 */
-		$all_language_post_id = str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
+		$post_id = Helpers::original_option_id( $post_id );
 
 		// Get the "All language" value
 		$value = acf_get_metadata( $all_language_post_id, $field['name'] );
@@ -153,21 +147,7 @@ class Main {
 	 * @return array
 	 */
 	function get_option_page_ids() {
-		if ( ! function_exists( 'acf_get_valid_location_rule' ) ) {
-			return [];
-		}
-		$rule = [
-			'param'    => 'options_page',
-			'operator' => '==',
-			'value'    => 'acf-options',
-			'id'       => 'rule_0',
-			'group'    => 'group_0',
-		];
-
-		$rule          = acf_get_valid_location_rule( $rule );
-		$options_pages = acf_get_location_rule_values( $rule );
-
-		return empty( $options_pages ) ? [] : array_keys( $options_pages );
+		return wp_list_pluck( acf_options_page()->get_pages(), 'post_id' );
 	}
 
 	/**
@@ -181,6 +161,7 @@ class Main {
 	 * @return bool
 	 */
 	function is_option_page( $post_id ) {
+		$post_id = Helpers::original_option_id( $post_id );
 		if ( false !== strpos( $post_id, 'options' ) ) {
 			return true;
 		}
