@@ -89,13 +89,7 @@ class Main {
 		remove_filter( 'acf/settings/current_language', [ $this, 'set_current_site_lang' ] );
 		remove_filter( 'acf/load_value', [ $this, 'get_default_value' ] );
 
-		/**
-		 * Generate the all language option's post_id key
-		 *
-		 * @since  1.0.2
-		 * @author Maxime CULEA
-		 */
-		$all_language_post_id = str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
+		$post_id = Helpers::original_option_id( $post_id );
 
 		// Get the "All language" value
 		$value = acf_get_metadata( $all_language_post_id, $field['name'] );
@@ -132,9 +126,7 @@ class Main {
 	 * @return bool
 	 */
 	function is_option_page( $post_id ) {
-		// Strip any locale from the end of the post_id so it matches post_id's that had their locale appended already
-		$post_id = str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
-
+		$post_id = Helpers::original_option_id( $post_id );
 		if ( false !== strpos( $post_id, 'options' ) ) {
 			return true;
 		}
