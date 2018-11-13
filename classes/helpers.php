@@ -28,7 +28,7 @@ class Helpers {
 	 */
 	public static function is_option_page( $post_id ) {
 		$post_id = Helpers::original_option_id( $post_id );
-		if ( false !== strpos( $post_id, 'options' ) ) {
+		if ( false !== strpos( $post_id, 'option' ) ) {
 			return true;
 		}
 
