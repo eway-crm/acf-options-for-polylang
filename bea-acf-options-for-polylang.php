@@ -2,7 +2,7 @@
 
 /*
  Plugin Name: BEA - ACF Options for Polylang
- Version: 1.1.4
+ Version: 1.1.5
  Plugin URI: https://github.com/BeAPI/acf-options-for-polylang
  Description: Add ACF options page support for Polylang.
  Author: Be API Technical team
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define( 'BEA_ACF_OPTIONS_FOR_POLYLANG_VERSION', '1.1.4' );
+define( 'BEA_ACF_OPTIONS_FOR_POLYLANG_VERSION', '1.1.5' );
 define( 'BEA_ACF_OPTIONS_FOR_POLYLANG_MIN_PHP_VERSION', '5.6' );
 
 // Plugin URL and PATH
@@ -45,7 +45,7 @@ define( 'BEA_ACF_OPTIONS_FOR_POLYLANG_PLUGIN_DIRNAME', basename( rtrim( dirname(
 
 // Check PHP min version
 if ( version_compare( PHP_VERSION, BEA_ACF_OPTIONS_FOR_POLYLANG_MIN_PHP_VERSION, '<' ) ) {
-	require_once( BEA_PB_DIR . 'compat.php' );
+	require_once( BEA_ACF_OPTIONS_FOR_POLYLANG_DIR . 'compat.php' );
 	// possibly display a notice, trigger error
 	add_action( 'admin_init', array( 'BEA\PB\Compatibility', 'admin_init' ) );
 	// stop execution of this file
