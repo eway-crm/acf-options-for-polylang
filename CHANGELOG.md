@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.5 - 11 Dec 2018
+* FIX wrong constant
+
 ## 1.1.4 - 13 Nov 2018
 * Refactor by adding the Helpers class
 * FEATURE [#26](https://github.com/BeAPI/acf-options-for-polylang/issues/26) : allow to precise to show or hide default values for a specific option page
