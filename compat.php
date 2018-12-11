@@ -1,6 +1,4 @@
-<?php
-
-namespace BEA\ACF_Options_For_Polylang;
+<?php namespace BEA\ACF_Options_For_Polylang;
 
 class Compatibility {
 	/**
