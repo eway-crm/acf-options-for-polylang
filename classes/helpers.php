@@ -13,6 +13,9 @@ class Helpers {
 	 * @return string
 	 */
 	public static function original_option_id( $post_id ) {
+		if ( is_a( $post_id, 'WP_Term' ) ) {
+			$post_id = $post_id->taxonomy . '_' . $post_id->term_id;
+		}
 		return str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
 	}
 
