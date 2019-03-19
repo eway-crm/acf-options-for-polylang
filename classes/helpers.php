@@ -13,20 +13,21 @@ class Helpers {
 	 * @return string
 	 */
 	public static function original_option_id( $post_id ) {
-		if ( ! is_object( $post_id ) ) {
-			return str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
-		}
-
-		switch ( get_class( $post_id ) ) {
-			case 'WP_Term':
-				$post_id = $post_id->taxonomy . '_' . $post_id->term_id;
-				break;
-			case 'WP_Comment':
-				$post_id = 'comment_' . $post_id->comment_ID;
-				break;
-			case 'WP_Post':
-				$post_id = $post_id->ID;
-				break;
+		// Check if is an object.
+		// Todo user case.
+		if ( is_object( $post_id ) ) {
+			// Apply for all cases.
+			switch ( get_class( $post_id ) ) {
+				case 'WP_Term':
+					$post_id = $post_id->taxonomy . '_' . $post_id->term_id;
+					break;
+				case 'WP_Comment':
+					$post_id = 'comment_' . $post_id->comment_ID;
+					break;
+				case 'WP_Post':
+					$post_id = $post_id->ID;
+					break;
+			}
 		}
 
 		return str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
