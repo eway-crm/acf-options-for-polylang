@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.6 - 19 Mar 2019
+* FIX [#32](https://github.com/BeAPI/acf-options-for-polylang/issues/32) & [#40](https://github.com/BeAPI/acf-options-for-polylang/issues/40) : fix `get_field()` if an object is provided (WP Term, WP Post, WP Comment)
+
 ## 1.1.5 - 11 Dec 2018
 * FIX wrong constant
 
