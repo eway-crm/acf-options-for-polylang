@@ -4,7 +4,7 @@
 
 You are using Advanced Custom Fields for creating option pages and you have Polylang installed for awsome multilingual site ?
 
-Sadly, Polylang is not handling ACF's Option Pages. Which means values will be the same for all languages you have set :(
+Sadly, Polylang is not handling ACF's Option Pages. Which means values will be the same for all languages you have set.
 
 We are here to save your life ! Once this plugin is activated, you will be able to set a different value for each language, and if none is set, the "All languages" value will be used as default one.
 
@@ -45,7 +45,7 @@ Then activate ACF Options For Polylang to handle ACF Options in setted Polylang'
 ## Features 
 
 - Almost simple fields (text, textarea, links, etc)
-- Repeater fields ( with simple fields )
+- Repeater fields (with simple fields)
 
 ## More features to come
 
@@ -54,7 +54,7 @@ As you can see, some [issues](../../issues?q=is%3Aissue+is%3Aopen+label%3Aquesti
 - Migration of data for not using plugin anymore
 
 ## Next Roadmap
-- todo
+- Fixing [#41] : repeater issue when need to get all languages one.
 
 ## Contributing
 
@@ -65,6 +65,15 @@ Please refer to the [contributing guidelines](.github/CONTRIBUTING.md) to increa
 If you identify any errors or have an idea for improving the plugin, feel free to open an [issue](../../issues/new). Please provide as much info as needed in order to help us resolving / approve your request.
 
 ## For developers
+
+## Using fields
+
+Nothing change, we have made all the hooks for you, so no need to prefix your fields with a lang or something else.
+Only use ACF's helpers to get and show the fields as you did before with [get_field()](https://www.advancedcustomfields.com/resources/get_field/) or the_field() : 
+
+`get_field( 'footer_disclaimer', 'options' );`
+
+## Default values (with "All languages")
 
 The plugin is designed to get the Polylang "All languages" value if the current lang one is empty. But if you are not interested about this behaviour, you can programmatically deactivate it using the following filter by setting to false.
 
