@@ -10,7 +10,9 @@ We are here to save your life ! Once this plugin is activated, you will be able 
 
 # How ?
 
-This plugin is storing a value for each language into database. <b>That means at activation, all data will not be anymore available, but still in database.</b>Then Polylang's lang is used to get the values from the DB. Simply contribute your option page by selecting the Polylang's language from admin flags ui.
+This plugin will store a value for each language into database. Then Polylang's languages are used to get the values from the DB. <b>That means at activation, all existing data will not be anymore available, but still in database. You will retrieve it ad plugin deactivation.</b>
+
+Then to set and contribute your option page, simply use the Polylang's language admin flags ui.
 
 # Requirements
 
@@ -22,7 +24,8 @@ This plugin is storing a value for each language into database. <b>That means at
 
 # Installation
 
-Once activated Polylang's languages into admin area will affect ACF's options pages. 
+First activate and configure Polylang in you site.
+Then activate ACF Options For Polylang to handle ACF Options in setted Polylang's languages.
 
 ## WordPress
 
