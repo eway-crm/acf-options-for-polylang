@@ -1,4 +1,6 @@
-<?php namespace BEA\ACF_Options_For_Polylang;
+<?php
+
+namespace BEA\ACF_Options_For_Polylang;
 
 class Main {
 	/**
@@ -26,9 +28,9 @@ class Main {
 	/**
 	 * Get the current Polylang's locale or the wp's one
 	 *
+	 * @return bool|string
 	 * @author Maxime CULEA
 	 *
-	 * @return bool|string
 	 */
 	public function set_current_site_lang() {
 		return pll_current_language( 'locale' );
@@ -41,11 +43,11 @@ class Main {
 	 * @param $field_name
 	 * @param $post_id
 	 *
-	 * @author Jukra, Maxime CULEA
-	 *
+	 * @return string
 	 * @since  1.1.2
 	 *
-	 * @return string
+	 * @author Jukra, Maxime CULEA
+	 *
 	 */
 	public function get_default_reference( $reference, $field_name, $post_id ) {
 		if ( ! empty( $reference ) ) {
@@ -72,9 +74,9 @@ class Main {
 	 * @param $post_id
 	 * @param $field
 	 *
+	 * @return mixed|string|void
 	 * @author Maxime CULEA
 	 *
-	 * @return mixed|string|void
 	 */
 	public function get_default_value( $value, $post_id, $field ) {
 		if ( is_admin() || ! Helpers::is_option_page( $post_id ) ) {
@@ -86,7 +88,7 @@ class Main {
 		/**
 		 * Activate or deactivate the default value (all languages) for the given post id
 		 *
-		 * @param bool   $show_default     : whatever to show default for the given post id
+		 * @param bool $show_default : whatever to show default for the given post id
 		 * @param string $original_post_id : the original post id without lang attributes
 		 *
 		 * @since 1.0.4
@@ -107,16 +109,14 @@ class Main {
 			if ( is_array( $value ) ) {
 				// Get from array all the not empty strings
 				$is_empty = array_filter( $value, function ( $value_c ) {
-					return "" !== $value_c;
+					return '' !== $value_c;
 				} );
 
-				if ( ! empty( $is_empty ) ) {
-					// Not an array of empty values
+				if ( ! empty( $is_empty ) ) { // Not an array of empty values
 					return $value;
 				}
 			} else {
-				if ( "" !== $value ) {
-					// Not an empty string
+				if ( '' !== $value ) { // Not an empty string
 					return $value;
 				}
 			}
@@ -147,12 +147,12 @@ class Main {
 	 * @param string $future_post_id
 	 * @param string $original_post_id
 	 *
-	 * @since  1.0.2
+	 * @return string
 	 * @author Maxime CULEA
 	 *
-	 * @return string
+	 * @since  1.0.2
 	 */
-	function set_options_id_lang( $future_post_id, $original_post_id ) {
+	public function set_options_id_lang( $future_post_id, $original_post_id ) {
 		// Only on custom post id option page
 		if ( ! Helpers::is_option_page( $original_post_id ) ) {
 			return $future_post_id;

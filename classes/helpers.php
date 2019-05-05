@@ -1,4 +1,6 @@
-<?php namespace BEA\ACF_Options_For_Polylang;
+<?php
+
+namespace BEA\ACF_Options_For_Polylang;
 
 class Helpers {
 	/**
@@ -6,11 +8,10 @@ class Helpers {
 	 *
 	 * @param $post_id
 	 *
-	 * @author Maxime CULEA
-	 *
+	 * @return string
 	 * @since  1.0.4
 	 *
-	 * @return string
+	 * @author Maxime CULEA
 	 */
 	public static function original_option_id( $post_id ) {
 		// Check if is an object.
@@ -39,13 +40,13 @@ class Helpers {
 	 *
 	 * @param string $post_id
 	 *
-	 * @since  1.0.2
+	 * @return bool
 	 * @author Maxime CULEA
 	 *
-	 * @return bool
+	 * @since  1.0.2
 	 */
 	public static function is_option_page( $post_id ) {
-		$post_id = Helpers::original_option_id( $post_id );
+		$post_id = self::original_option_id( $post_id );
 		if ( false !== strpos( $post_id, 'option' ) ) {
 			return true;
 		}
@@ -58,10 +59,10 @@ class Helpers {
 	/**
 	 * Get all registered options pages as array [ post_id => page title ]
 	 *
-	 * @since  1.0.2
+	 * @return array
 	 * @author Maxime CULEA
 	 *
-	 * @return array
+	 * @since  1.0.2
 	 */
 	public static function get_option_page_ids() {
 		return wp_list_pluck( acf_options_page()->get_pages(), 'post_id' );
