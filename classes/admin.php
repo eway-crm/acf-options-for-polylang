@@ -25,6 +25,7 @@ class Admin {
 		$current_lang = pll_current_language( 'name' );
 
 		if ( false !== $current_lang ) {
+			/* translators: %s: current language name */
 			$output = sprintf( __( 'You are changing the options for language %s', 'bea-acf-options-for-polylang' ), $current_lang );
 		} else {
 			$output = __( '<strong>Be careful</strong>, you are going to modify the initial options, they will <span style="color:red">not be used</span> by any language.', 'bea-acf-options-for-polylang' );

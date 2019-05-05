@@ -1,0 +1,52 @@
+# Copyright (C) 2019 Be API
+# This file is distributed under the same license as the ACF Options for Polylang plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF Options for Polylang 1.1.7\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-options-for-polylang\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-05-05T16:09:29+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.1.0\n"
+"X-Domain: bea-acf-options-for-polylang\n"
+
+#. Plugin Name of the plugin
+msgid "ACF Options for Polylang"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/BeAPI/acf-options-for-polylang"
+msgstr ""
+
+#. Description of the plugin
+msgid "Add ACF options page support for Polylang."
+msgstr ""
+
+#. Author of the plugin
+msgid "Be API"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://beapi.fr"
+msgstr ""
+
+#: classes/requirements.php:16
+msgid "Advanced Custom Fields and Polylang are required plugins."
+msgstr ""
+
+#: classes/requirements.php:22
+msgid "Advanced Custom Fields should be on version 5.6.0 or above."
+msgstr ""
+
+#. translators: %s: current language name
+#: classes/admin.php:29
+msgid "You are changing the options for language %s"
+msgstr ""
+
+#: classes/admin.php:31
+msgid "<strong>Be careful</strong>, you are going to modify the initial options, they will <span style=\"color:red\">not be used</span> by any language."
+msgstr ""

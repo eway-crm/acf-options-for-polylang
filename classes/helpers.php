@@ -10,25 +10,29 @@ class Helpers {
 	 *
 	 * @return string
 	 * @since  1.0.4
+	 * @see acf_get_valid_post_id() for object testing
 	 *
 	 * @author Maxime CULEA
 	 */
 	public static function original_option_id( $post_id ) {
-		// Check if is an object.
-		// Todo user case.
+		// $post_id may be an object
 		if ( is_object( $post_id ) ) {
-			// Apply for all cases.
-			switch ( get_class( $post_id ) ) {
-				case 'WP_Term':
-					$post_id = $post_id->taxonomy . '_' . $post_id->term_id;
-					break;
-				case 'WP_Comment':
-					$post_id = 'comment_' . $post_id->comment_ID;
-					break;
-				case 'WP_Post':
-					$post_id = $post_id->ID;
-					break;
+			if ( isset( $post_id->post_type, $post_id->ID ) ) { // post
+				$post_id = $post_id->ID;
+			} elseif ( isset( $post_id->roles, $post_id->ID ) ) { // user
+				$post_id = 'user_' . $post_id->ID;
+			} elseif ( isset( $post_id->taxonomy, $post_id->term_id ) ) { // term
+				$post_id = acf_get_term_post_id( $post_id->taxonomy, $post_id->term_id );
+			} elseif ( isset( $post_id->comment_ID ) ) { // comment
+				$post_id = 'comment_' . $post_id->comment_ID;
+			} else { // default
+				$post_id = 0;
 			}
+		}
+
+		// allow for option == options
+		if ( 'option' === $post_id ) {
+			$post_id = 'options';
 		}
 
 		return str_replace( sprintf( '_%s', pll_current_language( 'locale' ) ), '', $post_id );
@@ -52,12 +56,15 @@ class Helpers {
 		}
 
 		$options_pages = self::get_option_page_ids();
+		if ( empty( $options_pages ) ) {
+			return false;
+		}
 
-		return ! empty( $options_pages ) && in_array( $post_id, $options_pages );
+		return in_array( $post_id, $options_pages, false );
 	}
 
 	/**
-	 * Get all registered options pages as array [ post_id => page title ]
+	 * Get all registered options pages as array [ menu_slug => post_id ]
 	 *
 	 * @return array
 	 * @author Maxime CULEA
