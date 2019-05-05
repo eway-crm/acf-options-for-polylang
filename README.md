@@ -16,9 +16,8 @@ Then to set and contribute your option page, simply use the Polylang's language 
 
 # Requirements
 
-- [WordPress](https://wordpress.org/) 4.7+
-- Tested up to 4.9.4
-- PHP 5.6
+- Require [WordPress](https://wordpress.org/) 4.7+ / Tested up to 5.2
+- Require PHP 5.6
 - [Advanced Custom Fields](https://www.advancedcustomfields.com/pro) 5.6.0+
 - [Polylang](https://polylang.pro/)
 
@@ -106,4 +105,4 @@ If you really like what we do or want to thank us for our quick work, feel free 
 
 ## License
 
-BEA - ACF Options for Polylang is licensed under the [GPLv3 or later](LICENSE.md).
+BEA - ACF Options for Polylang is licensed under the [GPLv2 or later](LICENSE.md).
