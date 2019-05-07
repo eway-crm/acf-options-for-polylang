@@ -1,6 +1,6 @@
 === ACF Options For Polylang ===
 Contributors: momo360modena, BeAPI
-Author URI: http://beapi.fr
+Author URI: https://beapi.fr
 Plugin URL: https://github.com/BeAPI/acf-options-for-polylang
 Requires at Least: 4.7
 Tested Up To: 5.2
@@ -18,6 +18,8 @@ Sadly, Polylang is not handling ACF's Option Pages. Which means values will be t
 
 We are here to save your life ! Once this plugin is activated, you will be able to set a different value for each language, and if none is set, the "All languages" value will be used as default one.
 
+***Please refer to [Github](https://github.com/BeAPI/acf-options-for-polylang) for detailed usage instructions and issues.***
+
 ## Features
 
 - Almost simple fields (text, textarea, links, etc)
@@ -33,12 +35,12 @@ Then to set and contribute your option page, simply use the Polylang's language 
 
 **Requirements**
 
- - [Advanced Custom Fields](https://www.advancedcustomfields.com/pro) 5.6.0+
- - [Polylang](https://polylang.pro/)
+* [Advanced Custom Fields](https://www.advancedcustomfields.com/pro) 5.6.0+
+* [Polylang](https://polylang.pro/)
 
 **Installation**
 
-First activate and configure Polylang in you site.
+First activate and configure ACF & Polylang on you site.
 Then activate ACF Options For Polylang to handle ACF Options in setted Polylang's languages.
 
 ***WordPress***
