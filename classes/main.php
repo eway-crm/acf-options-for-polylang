@@ -115,7 +115,7 @@ class Main {
 				if ( ! empty( $is_empty ) ) { // Not an array of empty values
 					return $value;
 				}
-			} else {
+			} elseif ( 'repeater' !== $field['type'] ) {
 				if ( '' !== $value ) { // Not an empty string
 					return $value;
 				}
@@ -130,7 +130,7 @@ class Main {
 		remove_filter( 'acf/load_value', [ $this, 'get_default_value' ] );
 
 		// Get the "All language" value
-		$value = acf_get_metadata( $original_post_id, $field['name'] );
+		$value = acf_get_value( $original_post_id, $field );
 
 		/**
 		 * Re-add deleted filters
@@ -155,6 +155,10 @@ class Main {
 	public function set_options_id_lang( $future_post_id, $original_post_id ) {
 		// Only on custom post id option page
 		if ( ! Helpers::is_option_page( $original_post_id ) ) {
+			return $future_post_id;
+		}
+
+		if ( Helpers::already_localized( $future_post_id ) ) {
 			return $future_post_id;
 		}
 
