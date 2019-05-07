@@ -2,6 +2,8 @@
 
 ## 1.1.7 - 05 May 2019
 * Feature: Add a context-sensitive help to the user on ACF options page (tired of updating the generic options ...)
+* Improve: object detection from ACF with get_field()
+* Feature: Add translation POT and french translation
 
 ## 1.1.6 - 19 Mar 2019
 * FIX [#32](https://github.com/BeAPI/acf-options-for-polylang/issues/32) & [#40](https://github.com/BeAPI/acf-options-for-polylang/issues/40) : fix `get_field()` if an object is provided (WP Term, WP Post, WP Comment)
