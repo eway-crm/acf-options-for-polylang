@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.7 - 7 May 2019
+* Add a context-sensitive help to the user on ACF options page (tired of updating the generic options ...)
+* FEATURE [#31](https://github.com/BeAPI/acf-options-for-polylang/issues/31) : Brand for wp.org
+
+## 1.1.6 - 19 Mar 2019
+* FIX [#32](https://github.com/BeAPI/acf-options-for-polylang/issues/32) & [#40](https://github.com/BeAPI/acf-options-for-polylang/issues/40) : fix `get_field()` if an object is provided (WP Term, WP Post, WP Comment)
+
+## 1.1.5 - 11 Dec 2018
+* FIX wrong constant
+
 ## 1.1.4 - 13 Nov 2018
 * Refactor by adding the Helpers class
 * FEATURE [#26](https://github.com/BeAPI/acf-options-for-polylang/issues/26) : allow to precise to show or hide default values for a specific option page
