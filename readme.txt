@@ -58,8 +58,12 @@ Then activate ACF Options For Polylang to handle ACF Options in setted Polylang'
 
 == Changelog ==
 
-* 1.1.7 - 05 May 2019
+*  1.1.7 - XX May 2019
     * Feature: Add a context-sensitive help to the user on ACF options page (tired of updating the generic options ...)
+    * Feature: Improve object detection from ACF with get_field()
+    * Feature: Add translation POT and french translation
+    * Test: Test up on WP 5.2
+    * FIX [#41](https://github.com/BeAPI/acf-options-for-polylang/issues/41) : fix bug with all language failback and repeater
 * 1.1.6 - 19 Mar 2019
     * FIX [#32](https://github.com/BeAPI/acf-options-for-polylang/issues/32) & [#40](https://github.com/BeAPI/acf-options-for-polylang/issues/40) : fix `get_field()` if an object is provided (WP Term, WP Post, WP Comment)
 * 1.1.5 - 11 Dec 2018
