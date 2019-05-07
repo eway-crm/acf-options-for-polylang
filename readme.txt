@@ -1,5 +1,5 @@
 === ACF Options For Polylang ===
-Contributors: momo360modena, BeAPI
+Contributors: momo360modena, BeAPI, maximeculea, NicolasKulka
 Author URI: https://beapi.fr
 Plugin URL: https://github.com/BeAPI/acf-options-for-polylang
 Requires at Least: 4.7
