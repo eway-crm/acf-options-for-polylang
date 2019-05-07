@@ -80,7 +80,7 @@ class Helpers {
 	 *
 	 * @param $post_id
 	 *
-	 * @since x.y.z
+	 * @since  1.1.7
 	 * @author Maxime CULEA
 	 *
 	 * @return bool

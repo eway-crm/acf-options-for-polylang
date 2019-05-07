@@ -5,7 +5,7 @@ Plugin URL: https://github.com/BeAPI/acf-options-for-polylang
 Requires at Least: 4.7
 Tested Up To: 5.2
 Tags: acf, polylang, option, options, options page, advanced custom fields
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 Requires PHP: 5.6
 
 Add ACF options page support for Polylang.
@@ -58,7 +58,7 @@ Then activate ACF Options For Polylang to handle ACF Options in setted Polylang'
 
 == Changelog ==
 
-= 1.1.7 - 05 May 2019 =
+= 1.1.7 - 07 May 2019 =
 - Feature: Add a context-sensitive help to the user on ACF options page (tired of updating the generic options ...)
 - Improve: object detection from ACF with get_field()
 - Feature: Add translation POT and french translation
