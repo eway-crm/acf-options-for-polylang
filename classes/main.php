@@ -93,6 +93,7 @@ class Main {
 		 *
 		 * @since 1.0.4
 		 */
+
 		if ( ! apply_filters( 'bea.aofp.get_default', true, $original_post_id ) ) {
 			return $value;
 		}
@@ -115,7 +116,7 @@ class Main {
 				if ( ! empty( $is_empty ) ) { // Not an array of empty values
 					return $value;
 				}
-			} else {
+			} elseif ( 'repeater' !== $field['type'] ) {
 				if ( '' !== $value ) { // Not an empty string
 					return $value;
 				}
@@ -130,7 +131,7 @@ class Main {
 		remove_filter( 'acf/load_value', [ $this, 'get_default_value' ] );
 
 		// Get the "All language" value
-		$value = acf_get_metadata( $original_post_id, $field['name'] );
+		$value = acf_get_value( $original_post_id, $field );
 
 		/**
 		 * Re-add deleted filters
