@@ -93,7 +93,6 @@ class Main {
 		 *
 		 * @since 1.0.4
 		 */
-
 		if ( ! apply_filters( 'bea.aofp.get_default', true, $original_post_id ) ) {
 			return $value;
 		}
