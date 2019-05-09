@@ -2,6 +2,8 @@
 
 # BEA - ACF Options For Polylang
 
+[![CodeFactor](https://www.codefactor.io/repository/github/beapi/acf-options-for-polylang/badge)](https://www.codefactor.io/repository/github/beapi/acf-options-for-polylang)
+
 You are using Advanced Custom Fields for creating option pages and you have Polylang installed for awsome multilingual site ?
 
 Sadly, Polylang is not handling ACF's Option Pages. Which means values will be the same for all languages you have set.
