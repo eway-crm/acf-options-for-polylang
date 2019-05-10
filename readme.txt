@@ -44,8 +44,8 @@ Then activate ACF Options For Polylang to handle ACF Options in setted Polylang'
 
 = Requirements =
 
-- WordPress 4.7+ / Tested up to 5.2</li>
-- Require PHP 5.6</li>
+- WordPress 4.7+ / Tested up to 5.2
+- Require PHP 5.6
 - [Advanced Custom Fields Pro (5.6.0+)](https://www.advancedcustomfields.com/pro)
 - [Polylang](https://polylang.pro)
 
