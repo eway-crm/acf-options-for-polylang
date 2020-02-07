@@ -1,7 +1,7 @@
 <?php
 
 /*
- Plugin Name: BEA - ACF Options for Polylang
+ Plugin Name: eWay - ACF Options for Polylang
  Version: 1.1.3
  Plugin URI: https://github.com/BeAPI/acf-options-for-polylang
  Description: Add ACF options page support for Polylang.
